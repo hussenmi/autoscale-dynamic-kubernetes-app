@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo App</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Todo List</h1>
+
+    <!-- Todo Form -->
+    <form method="POST" class="todo-form">
+        <div class="form-group">
+            <label for="content">Todo Item:</label>
+            <input type="text" id="content" name="content" placeholder="What needs to be done?">
+        </div>
+        <div class="form-group">
+            <label for="due_date">Due Date:</label>
+            <input type="date" id="due_date" name="due_date">
+        </div>
+        <div class="form-group">
+            <label for="priority">Priority:</label>
+            <select id="priority" name="priority">
+                <option value="">Select Priority</option>
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="status">Status:</label>
+            <select id="status" name="status">
+                <option value="">Select Status</option>
+                <option value="Pending">Pending</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+            </select>
+        </div>
+        <button type="submit">Add</button>
+    </form>
+
+    <!-- Todo List -->
+    <ul class="todo-list">
+        {% for todo in todos %}
+            <li>
+                <div class="content-box">
+                    <strong>{{ todo.content }}</strong>
+                    {% if todo.due_date %}<span> | Due: {{ todo.due_date }}</span>{% endif %}
+                    {% if todo.priority %}<span> | Priority: {{ todo.priority }}</span>{% endif %}
+                    {% if todo.status %}<span> | Status: {{ todo.status }}</span>{% endif %}
+                </div>
+                <div class="action-buttons">
+                    <a href="{{ url_for('update_todo', todo_id=todo.id) }}" class="edit-button">Edit</a>
+                    <form method="POST" action="{{ url_for('delete_todo', todo_id=todo.id) }}" class="inline-form">
+                        <button type="submit" class="delete-button">Delete</button>
+                    </form>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

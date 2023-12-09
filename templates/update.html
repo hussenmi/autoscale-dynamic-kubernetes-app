@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Todo</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Update Todo</h1>
+    <form method="POST" class="update-form">
+        <div class="form-group">
+            <label for="content">Content:</label>
+            <input type="text" id="content" name="content" value="{{ todo.content }}" placeholder="Enter todo content">
+        </div>
+        <div class="form-group">
+            <label for="due_date">Due Date:</label>
+            <input type="date" id="due_date" name="due_date" value="{{ todo.due_date }}" placeholder="YYYY-MM-DD">
+        </div>
+        <div class="form-group">
+            <label for="priority">Priority:</label>
+            <select id="priority" name="priority">
+                <option value="">Select Priority</option>
+                <option value="High" {% if todo.priority == 'High' %} selected {% endif %}>High</option>
+                <option value="Medium" {% if todo.priority == 'Medium' %} selected {% endif %}>Medium</option>
+                <option value="Low" {% if todo.priority == 'Low' %} selected {% endif %}>Low</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="status">Status:</label>
+            <select id="status" name="status">
+                <option value="">Select Status</option>
+                <option value="Pending" {% if todo.status == 'Pending' %} selected {% endif %}>Pending</option>
+                <option value="In Progress" {% if todo.status == 'In Progress' %} selected {% endif %}>In Progress</option>
+                <option value="Completed" {% if todo.status == 'Completed' %} selected {% endif %}>Completed</option>
+            </select>
+        </div>
+        <button type="submit">Update</button>
+    </form>
+</body>
+</html>
