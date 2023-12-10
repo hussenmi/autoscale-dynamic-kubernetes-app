@@ -5,6 +5,20 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <header>
+        <div class="logout-container">
+            <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
+        </div>
+    </header>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-message {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     <h1>Todo List</h1>
 
     <!-- Todo Form -->
